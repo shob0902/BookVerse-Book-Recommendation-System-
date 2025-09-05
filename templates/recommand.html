@@ -137,17 +137,37 @@
         }
 
         .book-card {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
+            background: rgba(47, 47, 47, 0.03);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease-in-out;
+            height: 100%;
         }
 
         .book-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            background: #5d421758;
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .book-card:hover h3 {
+            color: #ffffffff !important;
+        }
+
+        .book-card:hover p {
+            color: #fffdfdff !important;
+        }
+
+        .book-card:hover .book-meta span {
+            color: #ffffffff !important;
+        }
+
+        .book-card:hover .fa-star {
+            color: #f1c40f !important;
         }
 
         .book-card img {
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.3s ease;
         }
 
         .book-card:hover img {
