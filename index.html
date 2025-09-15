@@ -88,7 +88,9 @@
             margin-bottom: 2rem;
             background: linear-gradient(45deg, #ffffff, #a8a8a8);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
+            color: transparent;
         }
 
         .hero-subtitle {
@@ -177,7 +179,7 @@
                             <img src="{{ image[i] }}" alt="{{ bookName[i] }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; transition: transform 0.3s ease;">
                         </div>
                         <div class="book-info" style="padding: 1rem;">
-                            <h3 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem; color: #ffffff; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.3;">{{ bookName[i] }}</h3>
+                            <h3 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem; color: #ffffff; display: -webkit-box; display: box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; box-orient: vertical; overflow: hidden; line-height: 1.3;">{{ bookName[i] }}</h3>
                             <p style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.7); margin-bottom: 0.3rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ bookAuthor[i] }}</p>
                             <div class="book-meta" style="display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem;">
                                 <span style="display: flex; align-items: center; gap: 0.2rem;">

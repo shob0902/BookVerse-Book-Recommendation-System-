@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BookVerse - Intelligent Book Recommendations</title>
+    <title>BookVerse - Get Recommendations</title>
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -77,13 +77,13 @@
             color: #ffffff;
         }
 
-        .hero-section {
-            padding: 12rem 0 8rem 0;
+        .search-section {
+            padding: 12rem 0 6rem 0;
             background: linear-gradient(45deg, #1a1a1a, #0a0a0a);
         }
 
-        .hero-title {
-            font-size: 4rem;
+        .search-title {
+            font-size: 3.5rem;
             font-weight: 700;
             margin-bottom: 2rem;
             background: linear-gradient(45deg, #ffffff, #a8a8a8);
@@ -91,10 +91,49 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .hero-subtitle {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 3rem;
+        .search-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            color: #ffffff !important;
+            transition: all 0.3s ease;
+        }
+
+        .search-box::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .search-box:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+            outline: none;
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .error-message.show {
+            opacity: 1;
+        }
+
+        .btn-search {
+            background: linear-gradient(45deg, #3498db, #2ecc71);
+            border: none;
+            padding: 1rem 2rem;
+            font-weight: 600;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-search:hover {
+            transform: translateY(-2px);
         }
 
         .book-card {
@@ -126,12 +165,28 @@
         .book-card:hover .fa-star {
             color: #f1c40f !important;
         }
+
+        .book-card img {
+            transition: transform 0.3s ease;
+        }
+
+        .book-card:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Book grid layout */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
     </style>
 </head>
 
 <body>
     <!-- Main Content -->
-    <div class="main-content" id="mainContent">
+    <div class="main-content" style="opacity: 1;">
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="/">BookVerse</a>
@@ -147,56 +202,68 @@
         </div>
     </nav>
 
-    <section class="hero-section">
+    <section class="search-section">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-8 mx-auto text-center">
-                    <h1 class="hero-title">Discover Your Next Great Read</h1>
-                    <p class="hero-subtitle">Explore our curated collection of top-rated books and personalized recommendations</p>
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h1 class="search-title">Find Your Perfect Match</h1>
+                    <p class="mb-5" style="color: rgba(255, 255, 255, 0.7);">Enter a book you love and let our recommendation engine do its magic</p>
+                    <form action="/recommand_books" method="POST" class="mt-4" id="searchForm">
+                        <div class="input-group mb-3">
+                            <input name="user_input" type="text" class="form-control search-box" placeholder="Enter a book title..." required>
+                        </div>
+                        <div id="errorMessage" class="error-message text-center">The book is not recognized</div>
+                        <button type="submit" class="btn btn-search text-white mt-3">
+                            <i class="fas fa-search me-2"></i>
+                            Find Recommendations
+                        </button>
+                    </form>
+                    {% if error %}
+                    <div class="error-message show text-center mt-3">{{ error }}</div>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="books-section py-5">
+    {% if data %}
+    <section class="recommendations-section py-5">
         <div class="container">
             <div class="row mb-5">
-                <div class="col-lg-8">
+                <div class="col-12 text-center">
                     <h2 class="section-title" style="font-size: 2.5rem; font-weight: 700; color: #ffffff;">
-                        Trending Books
-                        <div class="title-bar" style="width: 60px; height: 4px; background: linear-gradient(45deg, #3498db, #2ecc71); margin-top: 15px;"></div>
+                        Recommended Books
+                        <div class="title-bar mx-auto" style="width: 60px; height: 4px; background: linear-gradient(45deg, #3498db, #2ecc71); margin-top: 15px;"></div>
                     </h2>
+                    <p class="mt-3" style="color: rgba(255, 255, 255, 0.7);">Based on your interest, we think you'll love these books</p>
                 </div>
             </div>
-            
+
             <div class="row g-4">
-                {% for i in range(0, 25) %}
+                {% for book, author, image, rating in data %}
                 <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="book-card">
-                        <div class="book-image" style="position: relative; padding-top: 130%; overflow: hidden;">
-                            <img src="{{ image[i] }}" alt="{{ bookName[i] }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; transition: transform 0.3s ease;">
+                    <article class="book-card" style="animation-delay: {{ loop.index0 * 0.1 }}s; height: 100%; background: rgba(255, 255, 255, 0.03); border-radius: 16px; overflow: hidden;">
+                        <div style="position: relative; padding-top: 130%; overflow: hidden;">
+                            <img src="{{ image }}" alt="{{ book }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;" loading="lazy">
                         </div>
-                        <div class="book-info" style="padding: 1rem;">
-                            <h3 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem; color: #ffffff; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.3;">{{ bookName[i] }}</h3>
-                            <p style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.7); margin-bottom: 0.3rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ bookAuthor[i] }}</p>
-                            <div class="book-meta" style="display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem;">
-                                <span style="display: flex; align-items: center; gap: 0.2rem;">
-                                    {% for star in range(rating[i]) %}
-                                    <i class="fas fa-star" style="color: #f1c40f; font-size: 0.7rem;"></i>
-                                    {% endfor %}
-                                </span>
-                                <span style="display: flex; align-items: center; gap: 0.2rem; color: rgba(255, 255, 255, 0.6);">
-                                    <i class="fas fa-user"></i>
-                                    <span style="font-size: 0.75rem;">{{ votes[i] }}</span>
-                                </span>
+                        <div style="padding: 1.5rem;">
+                            <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: #ffffff;">{{ book }}</h3>
+                            <p style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.7); margin-bottom: 1rem;">by {{ author }}</p>
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                <span style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.5);">Recommended</span>
+                                <div style="color: #ffd700; display: flex; align-items: center; gap: 4px;">
+                                    <span style="font-size: 1rem;">★</span>
+                                    <span style="font-size: 0.9rem;">{{ rating }}</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </article>
                 </div>
                 {% endfor %}
             </div>
         </div>
     </section>
+    {% endif %}
 
     <!-- Footer -->
     <footer class="footer py-5" style="background: rgba(255, 255, 255, 0.02); margin-top: 4rem;">
@@ -231,12 +298,16 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Add hover effects for image scaling only
-        document.querySelectorAll('.book-card').forEach(card => {
+        // Add hover effects to recommendation cards
+        document.querySelectorAll('.recommendation-card').forEach(card => {
             card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px)';
+                card.style.boxShadow = '0 20px 40px rgba(0,0,0,0.3)';
                 card.querySelector('.book-image img').style.transform = 'scale(1.05)';
             });
             card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+                card.style.boxShadow = 'none';
                 card.querySelector('.book-image img').style.transform = 'scale(1)';
             });
         });

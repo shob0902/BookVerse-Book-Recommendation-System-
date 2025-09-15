@@ -88,7 +88,9 @@
             margin-bottom: 2rem;
             background: linear-gradient(45deg, #ffffff, #a8a8a8);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
+            color: transparent;
         }
 
         .search-box {
@@ -247,7 +249,7 @@
                             <img src="{{ image }}" alt="{{ book }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;" loading="lazy">
                         </div>
                         <div style="padding: 1.5rem;">
-                            <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: #ffffff;">{{ book }}</h3>
+                                                        <h3 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem; color: #ffffff; display: -webkit-box; display: box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; box-orient: vertical; overflow: hidden; line-height: 1.3;">{{ book }}</h3>
                             <p style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.7); margin-bottom: 1rem;">by {{ author }}</p>
                             <div style="display: flex; align-items: center; justify-content: space-between;">
                                 <span style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.5);">Recommended</span>

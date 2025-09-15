@@ -117,12 +117,6 @@ BookVerse/
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Contact
-
-Developed by Shobhit Negi
-- Twitter: [@gaurav__dadhich](https://x.com/gaurav__dadhich)
-- LinkedIn: [Connect with me](https://www.linkedin.com/in/gdadhich-5025aa252)
-
 ---
 
 ⭐ Star us on GitHub if you like this project!
