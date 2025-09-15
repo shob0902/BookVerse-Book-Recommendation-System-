@@ -3,6 +3,7 @@ from flask import render_template
 import pickle
 import numpy as np
 from flask import request
+import os
 
 popularDF = pickle.load(open('popular.pkl', 'rb'))
 pt = pickle.load(open('pt.pkl', 'rb'))
@@ -65,5 +66,6 @@ def recommand():
     except Exception as e:
         return render_template('recommand.html', error="Sorry, something went wrong. Please try again.")
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))  # Render provides PORT env variable
+    app.run(host="0.0.0.0", port=port, debug=False)

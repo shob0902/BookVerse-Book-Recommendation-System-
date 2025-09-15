@@ -88,6 +88,8 @@
             margin-bottom: 2rem;
             background: linear-gradient(45deg, #ffffff, #a8a8a8);
             -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
             -webkit-text-fill-color: transparent;
         }
 
@@ -242,7 +244,7 @@
             <div class="row g-4">
                 {% for book, author, image, rating in data %}
                 <div class="col-lg-3 col-md-4 col-sm-6">
-                    <article class="book-card" style="animation-delay: {{ loop.index0 * 0.1 }}s; height: 100%; background: rgba(255, 255, 255, 0.03); border-radius: 16px; overflow: hidden;">
+                    <article class="book-card" style="height: 100%; background: rgba(255, 255, 255, 0.03); border-radius: 16px; overflow: hidden;" data-delay="{{ loop.index0 * 0.1 }}">
                         <div style="position: relative; padding-top: 130%; overflow: hidden;">
                             <img src="{{ image }}" alt="{{ book }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;" loading="lazy">
                         </div>
@@ -298,6 +300,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Apply animation delays from data attributes
+        document.querySelectorAll('.book-card[data-delay]').forEach(card => {
+            card.style.animationDelay = card.dataset.delay + 's';
+        });
+
         // Add hover effects to recommendation cards
         document.querySelectorAll('.recommendation-card').forEach(card => {
             card.addEventListener('mouseenter', () => {
