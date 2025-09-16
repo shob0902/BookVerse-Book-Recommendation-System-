@@ -88,7 +88,9 @@
             margin-bottom: 2rem;
             background: linear-gradient(45deg, #ffffff, #a8a8a8);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
+            color: transparent;
         }
 
         .hero-subtitle {
@@ -170,14 +172,14 @@
             </div>
             
             <div class="row g-4">
-                {% for i in range(0, 16) %}
+                {% for i in range(0, 25) %}
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="book-card">
                         <div class="book-image" style="position: relative; padding-top: 130%; overflow: hidden;">
                             <img src="{{ image[i] }}" alt="{{ bookName[i] }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; transition: transform 0.3s ease;">
                         </div>
                         <div class="book-info" style="padding: 1rem;">
-                            <h3 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem; color: #ffffff; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.3;">{{ bookName[i] }}</h3>
+                            <h3 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem; color: #ffffff; display: -webkit-box; display: box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; box-orient: vertical; overflow: hidden; line-height: 1.3;">{{ bookName[i] }}</h3>
                             <p style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.7); margin-bottom: 0.3rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ bookAuthor[i] }}</p>
                             <div class="book-meta" style="display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem;">
                                 <span style="display: flex; align-items: center; gap: 0.2rem;">
@@ -216,8 +218,8 @@
                 <div class="col-lg-4 mb-4">
                     <h6 class="text-white mb-4">Connect with the Developer</h6>
                     <div class="social-links">
-                        <a href="https://x.com/gaurav__dadhich?t=5FaStNScbMaZ5ONP_3V_0Q&s=08" class="me-3" style="color: rgba(255, 255, 255, 0.6);"><i class="fab fa-twitter"></i></a>
-                        <a href="https://www.linkedin.com/in/gdadhich-5025aa252?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="me-3" style="color: rgba(255, 255, 255, 0.6);"><i class="fab fa-linkedin"></i></a>
+                        <a href="http://x.com/shob_2004" class="me-3" style="color: rgba(255, 255, 255, 0.6);"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.linkedin.com/in/shobhit-shourya-35b3a8248/" class="me-3" style="color: rgba(255, 255, 255, 0.6);"><i class="fab fa-linkedin"></i></a>
                     </div>
                 </div>
             </div>

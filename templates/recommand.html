@@ -89,8 +89,8 @@
             background: linear-gradient(45deg, #ffffff, #a8a8a8);
             -webkit-background-clip: text;
             background-clip: text;
-            -webkit-text-fill-color: transparent;
             color: transparent;
+            -webkit-text-fill-color: transparent;
         }
 
         .search-box {
@@ -244,12 +244,12 @@
             <div class="row g-4">
                 {% for book, author, image, rating in data %}
                 <div class="col-lg-3 col-md-4 col-sm-6">
-                    <article class="book-card" style="animation-delay: {{ loop.index0 * 0.1 }}s; height: 100%; background: rgba(255, 255, 255, 0.03); border-radius: 16px; overflow: hidden;">
+                    <article class="book-card" style="height: 100%; background: rgba(255, 255, 255, 0.03); border-radius: 16px; overflow: hidden;" data-delay="{{ loop.index0 * 0.1 }}">
                         <div style="position: relative; padding-top: 130%; overflow: hidden;">
                             <img src="{{ image }}" alt="{{ book }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;" loading="lazy">
                         </div>
                         <div style="padding: 1.5rem;">
-                                                        <h3 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem; color: #ffffff; display: -webkit-box; display: box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; box-orient: vertical; overflow: hidden; line-height: 1.3;">{{ book }}</h3>
+                            <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: #ffffff;">{{ book }}</h3>
                             <p style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.7); margin-bottom: 1rem;">by {{ author }}</p>
                             <div style="display: flex; align-items: center; justify-content: space-between;">
                                 <span style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.5);">Recommended</span>
@@ -285,8 +285,8 @@
                 <div class="col-lg-4 mb-4">
                     <h6 class="text-white mb-4">Connect with the Developer</h6>
                     <div class="social-links">
-                        <a href="https://x.com/gaurav__dadhich?t=5FaStNScbMaZ5ONP_3V_0Q&s=08" class="me-3" style="color: rgba(255, 255, 255, 0.6);"><i class="fab fa-twitter"></i></a>
-                        <a href="https://www.linkedin.com/in/gdadhich-5025aa252?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="me-3" style="color: rgba(255, 255, 255, 0.6);"><i class="fab fa-linkedin"></i></a>
+                        <a href="http://x.com/shob_2004" class="me-3" style="color: rgba(255, 255, 255, 0.6);"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.linkedin.com/in/shobhit-shourya-35b3a8248/" class="me-3" style="color: rgba(255, 255, 255, 0.6);"><i class="fab fa-linkedin"></i></a>
                     </div>
                 </div>
             </div>
@@ -300,6 +300,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Apply animation delays from data attributes
+        document.querySelectorAll('.book-card[data-delay]').forEach(card => {
+            card.style.animationDelay = card.dataset.delay + 's';
+        });
+
         // Add hover effects to recommendation cards
         document.querySelectorAll('.recommendation-card').forEach(card => {
             card.addEventListener('mouseenter', () => {
