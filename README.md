@@ -1,122 +1,105 @@
-# BookVerse - Intelligent Book Recommendation System
+# BookVerse - Book Recommendation System
 
-BookVerse is a modern, AI-powered book recommendation system that helps users discover their next great read. Built with Flask and powered by collaborative filtering algorithms, it provides personalized book recommendations based on user preferences and reading patterns.
-
-![BookVerse Interface](Dataset/classicRec.png)
+BookVerse is an intelligent book recommendation web app built with Flask, pandas, numpy, and scikit-learn. It provides users with curated book suggestions based on popularity and collaborative filtering.
 
 ## Features
 
-- **Personalized Recommendations**: Get book suggestions based on your reading preferences
-- **Trending Books**: Discover the top 50 most acclaimed books
-- **Smart Search**: Find books easily with intelligent search functionality
-- **Rating System**: View book ratings and user feedback
-- **Responsive Design**: Seamless experience across all devices
-- **Modern UI**: Clean, intuitive interface with smooth animations
+- **Trending Books:** Shows top 50 books based on ratings and popularity.
+- **Intelligent Recommendations:** Enter a book title to get personalized suggestions using collaborative filtering.
+- **Modern UI:** Responsive, dark-themed interface with smooth hover effects and animations.
+- **Error Handling:** Friendly messages for unrecognized books or empty input.
+- **Star Ratings:** Ratings are rounded up and displayed as stars.
+- **Logo Branding:** Custom favicon and logo animation on navbar hover.
+- **Ready for Deployment:** Compatible with Render and GitHub Pages (static version).
 
-## Technology Stack
+## Tech Stack
 
-- **Backend**: Python, Flask
-- **Frontend**: HTML5, CSS3, JavaScript
-- **Data Processing**: NumPy, Pandas
-- **Machine Learning**: Scikit-learn (Collaborative Filtering)
-- **Database**: Pickle for data storage
-- **UI Framework**: Bootstrap 5.3.7
-- **Icons**: Font Awesome 6.0.0
+- **Backend:** Python 3.11+, Flask, pandas, numpy, scikit-learn, pickle
+- **Frontend:** HTML5, CSS3, Bootstrap 5, Font Awesome
+- **Deployment:** Render.com, GitHub Pages (static)
 
-## Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/shob0902/BookVerse.git
-   cd BookVerse
-   ```
-
-2. Install dependencies:
-   ```bash
-   pip install flask numpy pandas scikit-learn
-   ```
-
-3. Run the application:
-   ```bash
-   python app.py
-   ```
-
-4. Open your browser and navigate to:
-   ```
-   http://localhost:5000
-   ```
-
-## Project Structure
+## File Structure
 
 ```
-BookVerse/
+BookVerse-Book-Recommendation-System-/
 │
-├── app.py                 # Flask application main file
-├── one.ipynb             # Jupyter notebook with data processing
-├── Dataset/              # Dataset files
-│   ├── Books.csv        # Books information
-│   ├── Ratings.csv      # User ratings data
-│   └── Users.csv        # User information
-│
-├── static/              # Static files
-│   └── logo.png        # Website logo
-│
-├── templates/           # HTML templates
-│   ├── index.html      # Home page
-│   └── recommand.html  # Recommendation page
-│
-└── *.pkl               # Processed data files
+├── app.py                  # Flask backend
+├── requirements.txt        # Python dependencies
+├── runtime.txt             # Python version for deployment
+├── templates/
+│   ├── index.html          # Home page (trending books)
+│   └── recommand.html      # Recommendation page
+├── static/
+│   └── logo.png            # Logo for favicon and navbar
+├── Dataset/
+│   ├── Books.csv
+│   ├── Ratings.csv
+│   └── Users.csv
+├── popular.pkl             # Pickled DataFrame for trending books
+├── pt.pkl                  # Pivot table for collaborative filtering
+├── books.pkl               # Book metadata
+├── similarity_score.pkl    # Cosine similarity matrix
+└── README.md
 ```
 
 ## How It Works
 
-1. **Data Processing**:
-   - Processes book ratings and user data
-   - Calculates popularity scores
-   - Implements collaborative filtering
+- **Trending Books:** Uses ratings and popularity thresholds to select top books.
+- **Recommendations:** Finds similar books using cosine similarity on user-book ratings matrix.
+- **Star Ratings:** Ratings are rounded up (e.g., 3.2 → 4 stars).
+- **Error Handling:** Displays messages if the book is not found or input is empty.
 
-2. **Recommendation System**:
-   - Uses cosine similarity for book recommendations
-   - Considers user ratings and book popularity
-   - Provides personalized suggestions
+## Deployment
 
-3. **User Interface**:
-   - Clean and intuitive design
-   - Responsive layout
-   - Interactive elements with smooth animations
+### Render.com
 
-## API Endpoints
+1. Make sure you have `requirements.txt` and `runtime.txt` in your repo root.
+2. `runtime.txt` should contain:
+    ```
+    python-3.11.9
+    ```
+3. `requirements.txt` example:
+    ```
+    flask>=3.0.0,<4.0.0
+    numpy>=1.24.0,<2.0.0
+    pandas>=2.0.0,<3.0.0
+    scikit-learn>=1.3.0,<2.0.0
+    gunicorn>=21.2.0
+    Werkzeug>=3.0.0,<4.0.0
+    ```
+4. Deploy on Render.com with the build command:
+    ```
+    pip install -r requirements.txt
+    ```
+5. The app will run on the port specified by the `PORT` environment variable.
 
-- `/` - Home page with trending books
-- `/recommand` - Book recommendation interface
-- `/recommand_books` - POST endpoint for getting book recommendations
+### GitHub Pages (Static)
 
-## Future Enhancements
+- For a static showcase, copy `index.html` and `static/logo.png` to a `/docs` folder.
+- Update image and asset paths to be relative.
+- Enable GitHub Pages from the `/docs` folder in repo settings.
 
-- User authentication system
-- Personal reading lists
-- Social sharing features
-- Advanced filtering options
-- Reading history tracking
+## Usage
+
+- Visit `/` for trending books.
+- Visit `/recommand` to get recommendations.
+- Enter a book title and click "Recommend" for suggestions.
 
 ## Contributing
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## Credits
-
-- Book dataset provided by Goodreads
-- UI design inspired by modern web practices
-- Special thanks to all contributors
+Pull requests and suggestions are welcome! Please open an issue for major changes.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+MIT License
+
+## Credits
+
+- [Render.com](https://render.com/)
+- [Font Awesome](https://fontawesome.com/)
+- [Bootstrap](https://getbootstrap.com/)
+- [LottieFiles](https://lottiefiles.com/)
 
 ---
 
-⭐ Star us on GitHub if you like this project!
+**Contact:** [shob0902](https://github.com/shob0902)
